@@ -1,0 +1,9 @@
+{
+  "address": "0xYourSkyPactAddress",
+  "chainId": 84532,
+  "chainName": "Base Sepolia",
+  "rpcUrl": "https://sepolia.base.org",
+  "explorerUrl": "https://sepolia.basescan.org",
+  "currency": "ETH",
+  "deployBlock": 0
+}

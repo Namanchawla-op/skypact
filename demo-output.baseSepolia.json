@@ -1,0 +1,93 @@
+{
+  "network": "baseSepolia",
+  "chainId": 84532,
+  "contract": "0xF098757650c0B0F57BBB1a30F458979Fb19e8EeD",
+  "eventId": 2,
+  "verdict": "COORDINATED",
+  "pledges": {
+    "alpha": "KEPT",
+    "bravo": "KEPT"
+  },
+  "ledgerAudit": true,
+  "ledgerHead": "0xfc90aa8676ea858e6b4611e2f921501c3397ad5cb2cdccd9151f553797930cb9",
+  "suggestedSubmissionTxs": [
+    {
+      "step": 9,
+      "label": "Screener attests: Bravo maneuvered, miss distance 1450 m",
+      "txHash": "0x807449d0e71fb2fc16876fe200bb005616cfd16af44870e76d0d242877f05565",
+      "status": "success",
+      "explorer": "https://sepolia.basescan.org/tx/0x807449d0e71fb2fc16876fe200bb005616cfd16af44870e76d0d242877f05565"
+    }
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "label": "Screener opens conjunction",
+      "txHash": "0x910ceb46ca493c9ee543f6b173425b5e69165401fc4a60a0bc7e56bd8d63c198",
+      "status": "success",
+      "explorer": "https://sepolia.basescan.org/tx/0x910ceb46ca493c9ee543f6b173425b5e69165401fc4a60a0bc7e56bd8d63c198"
+    },
+    {
+      "step": 2,
+      "label": "SAT-001 seals HOLD (hash only on chain)",
+      "txHash": "0x5175f1a9d1051b35098dcbcc60e8adafdc029df8460b9aebff71f821b30f471f",
+      "status": "success",
+      "explorer": "https://sepolia.basescan.org/tx/0x5175f1a9d1051b35098dcbcc60e8adafdc029df8460b9aebff71f821b30f471f"
+    },
+    {
+      "step": 3,
+      "label": "SAT-002 seals MANEUVER (hash only on chain)",
+      "txHash": "0x36e02be59af5c54a72854f4815b75e17d4771397328220e08a22d7d10f377e88",
+      "status": "success",
+      "explorer": "https://sepolia.basescan.org/tx/0x36e02be59af5c54a72854f4815b75e17d4771397328220e08a22d7d10f377e88"
+    },
+    {
+      "step": 4,
+      "label": "Screener wallet tries to commit as an operator",
+      "txHash": "0xf9376448e37a62a68372a91105f51caea9abd4f562acc1f910f53274b2d3bc06",
+      "status": "refused",
+      "explorer": "https://sepolia.basescan.org/tx/0xf9376448e37a62a68372a91105f51caea9abd4f562acc1f910f53274b2d3bc06",
+      "reason": "NotOperator",
+      "message": "This wallet is not an approved satellite operator."
+    },
+    {
+      "step": 5,
+      "label": "Alpha tries to re-commit after the deadline (backdating)",
+      "txHash": "0x91ae382db14ee5a56378bf5c0094443bb20524c282bce9d30facac7b35f64f4b",
+      "status": "refused",
+      "explorer": "https://sepolia.basescan.org/tx/0x91ae382db14ee5a56378bf5c0094443bb20524c282bce9d30facac7b35f64f4b",
+      "reason": "CommitWindowClosed",
+      "message": "The commit window has closed. Decisions can no longer be sealed for this event."
+    },
+    {
+      "step": 6,
+      "label": "Bravo tries to reveal HOLD instead of the sealed MANEUVER",
+      "txHash": "0x795fedd02f751a935e5aac915fa2483df406436828edb83f74181299f41b45e1",
+      "status": "refused",
+      "explorer": "https://sepolia.basescan.org/tx/0x795fedd02f751a935e5aac915fa2483df406436828edb83f74181299f41b45e1",
+      "reason": "HashMismatch",
+      "message": "That reveal does not match what you sealed. Check the action, plan fingerprint and secret salt."
+    },
+    {
+      "step": 7,
+      "label": "Alpha reveals HOLD",
+      "txHash": "0x6774c0892ed5756f146fc242a426b1683ed053a7414cff91665db1bda24a4e74",
+      "status": "success",
+      "explorer": "https://sepolia.basescan.org/tx/0x6774c0892ed5756f146fc242a426b1683ed053a7414cff91665db1bda24a4e74"
+    },
+    {
+      "step": 8,
+      "label": "Bravo reveals MANEUVER",
+      "txHash": "0xf56837a650934352b10d07aa94cc4f2eb2478124274309c28be1a2e9a1df455f",
+      "status": "success",
+      "explorer": "https://sepolia.basescan.org/tx/0xf56837a650934352b10d07aa94cc4f2eb2478124274309c28be1a2e9a1df455f"
+    },
+    {
+      "step": 9,
+      "label": "Screener attests: Bravo maneuvered, miss distance 1450 m",
+      "txHash": "0x807449d0e71fb2fc16876fe200bb005616cfd16af44870e76d0d242877f05565",
+      "status": "success",
+      "explorer": "https://sepolia.basescan.org/tx/0x807449d0e71fb2fc16876fe200bb005616cfd16af44870e76d0d242877f05565"
+    }
+  ]
+}

@@ -1,0 +1,1536 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "minPhaseSeconds_",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "attestWindowSeconds_",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "attestQuorum_",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyAttested",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyFinalized",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyOperator",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyRevealed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyScreener",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AttestWindowClosed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BadParams",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BadSchedule",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "CommitWindowClosed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "HashMismatch",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidAction",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidObservation",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LabelInvalid",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LabelTaken",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NoCommitment",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotAParty",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotAdmin",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotFinalizable",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotOperator",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotScreener",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OperatorNotActive",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RevealNotOpen",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RevealWindowClosed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SameOperator",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SameSatellite",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TooEarlyToAttest",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TooManyCommits",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UnknownConjunction",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UnknownOperator",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UnknownSatellite",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UnknownScreener",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "screener",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "mask",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "missMeters",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "at",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "quorumReached",
+        "type": "bool"
+      }
+    ],
+    "name": "Attested",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "side",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "satId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "revision",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "commitment",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "at",
+        "type": "uint64"
+      }
+    ],
+    "name": "Committed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "satA",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "satB",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "opA",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "opB",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "screener",
+            "type": "address"
+          },
+          {
+            "internalType": "uint64",
+            "name": "openedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "tca",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "commitDeadline",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "revealDeadline",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "attestDeadline",
+            "type": "uint64"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "cdmHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "predictedMissMeters",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint8",
+            "name": "quorum",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bool",
+            "name": "finalized",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "attested",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint8",
+            "name": "observedMask",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint32",
+            "name": "observedMissMeters",
+            "type": "uint32"
+          },
+          {
+            "internalType": "enum SkyPact.Verdict",
+            "name": "verdict",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum SkyPact.Pledge",
+            "name": "pledgeA",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum SkyPact.Pledge",
+            "name": "pledgeB",
+            "type": "uint8"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct SkyPact.Conjunction",
+        "name": "snapshot",
+        "type": "tuple"
+      }
+    ],
+    "name": "ConjunctionOpened",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "enum SkyPact.Kind",
+        "name": "kind",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "digest",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "head",
+        "type": "bytes32"
+      }
+    ],
+    "name": "Entry",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "by",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "noteHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "at",
+        "type": "uint64"
+      }
+    ],
+    "name": "ErratumFiled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum SkyPact.Verdict",
+        "name": "verdict",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum SkyPact.Pledge",
+        "name": "pledgeA",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum SkyPact.Pledge",
+        "name": "pledgeB",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "observedMask",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "observedMissMeters",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "attested",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "at",
+        "type": "uint64"
+      }
+    ],
+    "name": "Finalized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "OperatorAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "OperatorRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "quorum",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "attestWindow",
+        "type": "uint32"
+      }
+    ],
+    "name": "ParamsSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "side",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "satId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum SkyPact.Action",
+        "name": "action",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "paramsHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "at",
+        "type": "uint64"
+      }
+    ],
+    "name": "Revealed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "satId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "label",
+        "type": "string"
+      }
+    ],
+    "name": "SatelliteRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "screener",
+        "type": "address"
+      }
+    ],
+    "name": "ScreenerAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "screener",
+        "type": "address"
+      }
+    ],
+    "name": "ScreenerRevoked",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "MAX_COMMITS_PER_SIDE",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "MAX_QUORUM",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "addOperator",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "screener",
+        "type": "address"
+      }
+    ],
+    "name": "addScreener",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "admin",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "mask",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint32",
+        "name": "missMeters",
+        "type": "uint32"
+      }
+    ],
+    "name": "attest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "attestQuorum",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "attestWindowSeconds",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "commitment",
+        "type": "bytes32"
+      }
+    ],
+    "name": "commit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "satId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "enum SkyPact.Action",
+        "name": "action",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "paramsHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "salt",
+        "type": "bytes32"
+      }
+    ],
+    "name": "commitmentHash",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "conjunctionCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "entryCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "noteHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "fileErratum",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "name": "finalize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAttestations",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "screener",
+            "type": "address"
+          },
+          {
+            "internalType": "uint8",
+            "name": "mask",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint32",
+            "name": "missMeters",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "at",
+            "type": "uint64"
+          }
+        ],
+        "internalType": "struct SkyPact.Attestation[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "side",
+        "type": "uint8"
+      }
+    ],
+    "name": "getCommits",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "hash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "at",
+            "type": "uint64"
+          }
+        ],
+        "internalType": "struct SkyPact.Commit[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getConjunction",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "satA",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "satB",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "opA",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "opB",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "screener",
+            "type": "address"
+          },
+          {
+            "internalType": "uint64",
+            "name": "openedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "tca",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "commitDeadline",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "revealDeadline",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "attestDeadline",
+            "type": "uint64"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "cdmHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "predictedMissMeters",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint8",
+            "name": "quorum",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bool",
+            "name": "finalized",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "attested",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint8",
+            "name": "observedMask",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint32",
+            "name": "observedMissMeters",
+            "type": "uint32"
+          },
+          {
+            "internalType": "enum SkyPact.Verdict",
+            "name": "verdict",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum SkyPact.Pledge",
+            "name": "pledgeA",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum SkyPact.Pledge",
+            "name": "pledgeB",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct SkyPact.Conjunction",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getErrata",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "by",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "noteHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "at",
+            "type": "uint64"
+          }
+        ],
+        "internalType": "struct SkyPact.Erratum[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "side",
+        "type": "uint8"
+      }
+    ],
+    "name": "getReveal",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "enum SkyPact.Action",
+            "name": "action",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "paramsHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "at",
+            "type": "uint64"
+          }
+        ],
+        "internalType": "struct SkyPact.Reveal",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isScreener",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ledgerHead",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "minPhaseSeconds",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "satA",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "satB",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint64",
+        "name": "tca",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "commitDeadline",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "revealDeadline",
+        "type": "uint64"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "cdmHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "predictedMissMeters",
+        "type": "uint32"
+      }
+    ],
+    "name": "openConjunction",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "operatorInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct SkyPact.Operator",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      }
+    ],
+    "name": "phaseOf",
+    "outputs": [
+      {
+        "internalType": "enum SkyPact.Phase",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "label",
+        "type": "string"
+      }
+    ],
+    "name": "registerSatellite",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "satId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "reputationOf",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint32",
+            "name": "kept",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "broken",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "withheld",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "silent",
+            "type": "uint32"
+          }
+        ],
+        "internalType": "struct SkyPact.Reputation",
+        "name": "rep",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint16",
+        "name": "scoreBps",
+        "type": "uint16"
+      },
+      {
+        "internalType": "bool",
+        "name": "rated",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum SkyPact.Action",
+        "name": "action",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "paramsHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "salt",
+        "type": "bytes32"
+      }
+    ],
+    "name": "reveal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "revokeOperator",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "screener",
+        "type": "address"
+      }
+    ],
+    "name": "revokeScreener",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "satId",
+        "type": "uint256"
+      }
+    ],
+    "name": "satellite",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "operator",
+            "type": "address"
+          },
+          {
+            "internalType": "uint64",
+            "name": "registeredAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "string",
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct SkyPact.Satellite",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "satelliteCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "label",
+        "type": "string"
+      }
+    ],
+    "name": "satelliteIdByLabel",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "quorum",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint32",
+        "name": "attestWindow",
+        "type": "uint32"
+      }
+    ],
+    "name": "setParams",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

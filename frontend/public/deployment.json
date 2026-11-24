@@ -1,0 +1,9 @@
+{
+  "address": "0xF098757650c0B0F57BBB1a30F458979Fb19e8EeD",
+  "chainId": 84532,
+  "deployBlock": 62974790,
+  "chainName": "Base Sepolia",
+  "rpcUrl": "https://sepolia.base.org",
+  "explorerUrl": "https://sepolia.basescan.org",
+  "currency": "ETH"
+}
